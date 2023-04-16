@@ -1,0 +1,29 @@
+.card-container {
+	background-color: white;
+	min-width: 250px;
+	max-width: 350px;
+	min-height: 450px;
+	display: flex;
+	flex-direction: column;
+	box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 0 rgb(255, 255, 255),
+		0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+	overflow: auto;
+
+	.image-default {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.info-details {
+		padding: 15px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: center;
+		.heading,
+		.message {
+			margin-bottom: 15px;
+		}
+	}
+}
