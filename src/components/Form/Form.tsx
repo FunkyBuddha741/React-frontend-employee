@@ -8,10 +8,10 @@ import getEmployee from '../../api/getEmployee';
 type FormData = {
 	firstName: string;
 	lastName: string;
-	emailId: string;
+emailId: string;		
 };
 
-const Form = () => {
+const Form = ({ closeForm }: any) => {
 	const [formData, setFormData] = useState<any>({
 		loading: false,
 		error: false,
@@ -61,6 +61,9 @@ const Form = () => {
 
 	return (
 		<div className="wrapper">
+			<button className="button-close" onClick={() => closeForm(true)}>
+				X
+			</button>
 			<form className="form-container" onSubmit={handleSubmit(onSubmit)}>
 				<label className="label-mod">Enter your First Name</label>
 				<input
