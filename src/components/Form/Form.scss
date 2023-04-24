@@ -1,15 +1,18 @@
 .wrapper {
-	background-color: steelblue;
-	min-width: 100px;
-	max-width: 250px;
+	background-color: rgb(57, 59, 60);
+	width: 250px;
 	border-radius: 12px;
 	padding: 20px 40px 35px 40px;
 	margin: 0 auto;
-	.button-close {
-		cursor: pointer;
-		margin-bottom: 8px;
-		border: none;
-	}
+
+	// .button-close {
+	// 	float: right;
+	// 	cursor: pointer;
+	// 	margin-bottom: 8px;
+	// 	border: none;
+	// 	font-size: 20px;
+	// 	background-color: transparent;
+	// }
 	.form-container {
 		display: flex;
 		flex-direction: column;

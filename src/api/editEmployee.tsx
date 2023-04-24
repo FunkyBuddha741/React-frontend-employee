@@ -2,12 +2,15 @@ import React from 'react';
 import { apiEndPoints } from '../apiEndpoints';
 import axios from 'axios';
 
-const addEmployee = async (data: any, setData: any, payload: any) => {
+const editEmployee = async (
+	data: any,
+	setData: any,
+	employeeId: any,
+	payload: any
+) => {
 	setData({ ...data, loading: true, error: false, success: false, data: {} });
 	await axios
-		.post(apiEndPoints.ADD_EMPLOYEE, payload, {
-			headers: { 'Content-Type': 'application/json' },
-		})
+		.put(`${apiEndPoints.ADD_EMPLOYEE}/${employeeId}`, payload)
 		.then(async (res) => {
 			if (res.status === 200) {
 				await setData({
@@ -25,4 +28,4 @@ const addEmployee = async (data: any, setData: any, payload: any) => {
 		});
 };
 
-export default addEmployee;
+export default editEmployee;

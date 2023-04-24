@@ -2,12 +2,10 @@ import React from 'react';
 import { apiEndPoints } from '../apiEndpoints';
 import axios from 'axios';
 
-const addEmployee = async (data: any, setData: any, payload: any) => {
+const deleteEmployee = async (data: any, setData: any, employeeId: any) => {
 	setData({ ...data, loading: true, error: false, success: false, data: {} });
 	await axios
-		.post(apiEndPoints.ADD_EMPLOYEE, payload, {
-			headers: { 'Content-Type': 'application/json' },
-		})
+		.delete(`${apiEndPoints.ADD_EMPLOYEE}/${employeeId}`)
 		.then(async (res) => {
 			if (res.status === 200) {
 				await setData({
@@ -25,4 +23,4 @@ const addEmployee = async (data: any, setData: any, payload: any) => {
 		});
 };
 
-export default addEmployee;
+export default deleteEmployee;

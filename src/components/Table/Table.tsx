@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import './table.scss';
-import getEmployee from '../../api/getEmployee';
+import editEmployee from '../../api/editEmployee';
+import ModalOverLay from '../ModalOverlay/ModalOverLay';
+import Form from '../Form/Form';
 
-const Table = () => {
-	const [allData, setAllData] = useState<any>({
-		loading: false,
-		error: false,
-		success: false,
-		errors: {},
-		data: [],
-	});
-
-	useEffect(() => {
-		getEmployee(allData, setAllData);
-	}, []);
+const Table = ({
+	allData,
+	setAllData,
+	deleteEmployee,
+}: any) => {
+	const handleDelete = (item: any) => {
+		deleteEmployee(allData, setAllData, item.id);
+	};
 
 	return (
 		<div className="table-container">
@@ -40,7 +38,12 @@ const Table = () => {
 									<button className="button-td">Edit</button>
 								</td>
 								<td>
-									<button className="button-td">Delete</button>
+									<button
+										className="button-td"
+										onClick={() => handleDelete(item)}
+									>
+										Delete
+									</button>
 								</td>
 							</tr>
 						);

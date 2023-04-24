@@ -1,31 +1,18 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import './Form.scss';
-import axios from 'axios';
-import addEmployee from '../../api/addEmployee';
-import getEmployee from '../../api/getEmployee';
+import { useState } from 'react';
 
 type FormData = {
 	firstName: string;
 	lastName: string;
-emailId: string;		
+	emailId: string;
 };
 
-const Form = ({ closeForm }: any) => {
-	const [formData, setFormData] = useState<any>({
-		loading: false,
-		error: false,
-		success: false,
-		errors: {},
-		data: {},
-	});
-
-	const [allData, setAllData] = useState<any>({
-		loading: false,
-		error: false,
-		success: false,
-		errors: {},
-		data: {},
+const Form = ({ closeForm, handleform, formData, setFormData }: any) => {
+	const [internalState, setIntetnalState] = useState({
+		firstName: '',
+		lastName: '',
+		emailId: '',
 	});
 
 	const {
@@ -35,41 +22,32 @@ const Form = ({ closeForm }: any) => {
 		clearErrors,
 		formState: { errors },
 	} = useForm<FormData>();
-	console.log(Object.keys(errors).length !== 0);
 
-	const onSubmit: SubmitHandler<FormData> = useCallback(
-		(payload) => {
-			const res = addEmployee(formData, setFormData, payload);
-			console.log(res);
-		},
-		[errors]
-	);
+	const onSubmit = (payload: any) => {
+		console.log(payload);
+		handleform(formData, setFormData, payload);
+		closeForm(true);
+	};
 
-	useEffect(() => {
-		getEmployee(allData, setAllData);
-	}, []);
-
-	useEffect(() => {
-		if (Object.keys(errors).length !== 0) {
-			const interval = setInterval(() => {
-				clearErrors(['firstName', 'lastName', 'emailId']);
-				clearInterval(interval);
-			}, 2000);
-		}
-		console.log('here');
-	}, [clearErrors, errors, onSubmit]);
+	// useEffect(() => {
+	// 	if (Object.keys(errors).length !== 0) {
+	// 		const interval = setInterval(() => {
+	// 			clearErrors(['firstName', 'lastName', 'emailId']);
+	// 			clearInterval(interval);
+	// 		}, 2000);
+	// 	}
+	// 	console.log('here');
+	// }, [clearErrors, errors, onSubmit]);
 
 	return (
 		<div className="wrapper">
-			<button className="button-close" onClick={() => closeForm(true)}>
-				X
-			</button>
 			<form className="form-container" onSubmit={handleSubmit(onSubmit)}>
 				<label className="label-mod">Enter your First Name</label>
 				<input
 					className="form-input"
 					{...register('firstName', { required: true })}
 					placeholder="First name.."
+					defaultValue={internalState.firstName}
 				/>
 				{errors.firstName?.type === 'required' && (
 					<p className="error-message" role="alert">
@@ -81,6 +59,7 @@ const Form = ({ closeForm }: any) => {
 					className="form-input"
 					{...register('lastName', { required: true })}
 					placeholder="Last name.."
+					defaultValue={internalState.lastName}
 				/>
 				{errors.lastName?.type === 'required' && (
 					<p className="error-message" role="alert">
@@ -92,6 +71,7 @@ const Form = ({ closeForm }: any) => {
 					className="form-input"
 					{...register('emailId', { required: true })}
 					placeholder="Email address.."
+					defaultValue={internalState.emailId}
 				/>
 				{errors.emailId?.type === 'required' && (
 					<p className="error-message" role="alert">
