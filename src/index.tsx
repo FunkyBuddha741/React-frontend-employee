@@ -5,10 +5,27 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Items from './page/items/Items';
+import Home from './page/home/Home';
+import Header from './components/Header/Header';
+import AddEmployee from './page/CreateEmployee/AddEmployee';
+import UpdateEmployee from './page/UpdateEmployee/UpdateEmployee';
 
 const router = createBrowserRouter([
 	{
 		path: '/',
+		element: <Home />,
+	},
+	{
+		path: '/addEmployee',
+		element: <AddEmployee />,
+	},
+	{
+		path: `/edit_employee/:id`,
+		element: <UpdateEmployee />,
+	},
+
+	{
+		path: '/app',
 		element: <App />,
 	},
 	{
@@ -22,6 +39,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
 	<React.StrictMode>
+		<Header />
 		<RouterProvider router={router} />
 	</React.StrictMode>
 );

@@ -2,18 +2,18 @@ import React from 'react';
 import { apiEndPoints } from '../apiEndpoints';
 import axios from 'axios';
 
-const addEmployee = async (data: any, setData: any, payload: any) => {
+const getEmployeeById = (data: any, setData: any, id: any) => {
 	setData({ ...data, loading: true, error: false, success: false, data: [] });
-	await axios
-		.post(apiEndPoints.ADD_EMPLOYEE, payload, {
-			headers: { 'Content-Type': 'application/json' },
-		})
-		.then(async (res) => {
+	axios
+		.get(`${apiEndPoints.GET_EMPLOYEE}/${id}`)
+		.then((res) => {
 			if (res.status === 200) {
-				await setData({
+				setData({
 					...data,
 					loading: false,
 					success: true,
+					error: false,
+					data: res?.data,
 				});
 			} else {
 				setData({ ...data, loading: false, error: true, success: false });
@@ -25,4 +25,4 @@ const addEmployee = async (data: any, setData: any, payload: any) => {
 		});
 };
 
-export default addEmployee;
+export default getEmployeeById;
